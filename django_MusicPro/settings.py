@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MusicPro.apps.MusicproConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
