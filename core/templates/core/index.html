@@ -16,7 +16,7 @@
 </head>
 <body id="body">
     <div class="master">
-        <!-- {% include 'core/navBar.html'%} -->
+        {% include 'core/navBar.html'%}
         <div class="main">
             <div class="containerLogoIndex">
                 <a class="logoMain" href="">Music<span class="colorJardin">Pro <br> </span></a>
@@ -107,48 +107,8 @@
     <!--                    Seccion final                  -->
     <!--  ================================================ -->
 
+    {% include 'core/footer.html'%}
 
-
-    <footer class="footer-distributed">
-
-        <div class="footer-right">
-    <!-- aca irian lo links en la #-->
-            <a href="#"><i class="fa fa-whatsapp"></i></a><!--whatsap-->
-            <a href="#"><i class="fa fa-instagram"></i></a> <!--instagram-->
-            <a href="#"><i class="fa fa-facebook"></i></a><!-- icono de youtube-->
-            <a href="#"><i class="fa fa-github"></i></a><!-- github del proyecto-->
-        </div>
-        <div class="footer-left">
-            <p class="footer-links">
-                <p class="footer-links">
-                    <!--Despachos-->
-                              <a class="link-1" href="https://www.starken.cl/">Despachos</a>
-                    <!--ONG-->
-                              <a href={%url 'index' %}>A</a>
-                    <!--Suscribete-->
-                              <a href={%url 'index' %}>A</a>
-                    <!--Formulario-->
-                    <!-- {% if user.is_authenticated %}
-                              <a style="color: rgb(89, 236, 89);" href={% url 'logout' %}>Cerrar Sesión</a>
-                    {% endif %} -->
-                    <!-- Crud -->
-                    <!-- {% if user.is_staff %}
-                              <a style="color: rgb(89, 236, 89);" href={% url 'formulario' %}>Formulario</a>
-                    
-                              <a style="color: rgb(89, 236, 89);" href={% url 'crud' %}>Crud</a>
-                              
-                              <a style="color: rgb(89, 236, 89);" href={% url 'registro' %}>RegistrarUsuario</a>
-                              <p style="color: rgb(89, 236, 89);" href="#">@{{user.username}}</p>
-                    {% else %}
-                        <a style="color: rgb(89, 236, 89);" href={% url 'index' %}>TuJardínUsuario</a>    
-                    {% endif %}  -->
-
-                          </p>
-
-            <p>MusicPro &copy; 2023</p>
-        </div>
-
-    </footer>
     <script src={% static "./js/index.js" %}> </script> 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- {% if messages%}

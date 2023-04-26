@@ -1,0 +1,21 @@
+[
+  {   
+      "idpro": "1",
+      "nombre": "a",
+      "imagen": "img/1.4Amplificadores.jpg",
+      "descripcion": "a",
+      "precio":"$9999",
+      "alt":"a",
+      "category":"Percusión"
+      },
+      {
+      "idpro": "2",
+      "nombre": "a3",
+      "imagen": "img/1.4Amplificadores.jpg",
+      "descripcion": "a",
+      "precio":"$99999",
+      "alt":"a2",
+      "category":"Cuerdas"
+      }
+]
+  

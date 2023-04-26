@@ -83,7 +83,7 @@
     
     .linkMenu:hover {
         cursor: pointer;
-        color: rgb(89, 236, 89);
+        color: rgb(160, 6, 6);
     }
     
     .linkMenu {
@@ -92,7 +92,7 @@
     }
 
     .linkMenu.active {
-        color: #5cd85c;
+        color: rgb(160, 6, 6);
     }
     
     
