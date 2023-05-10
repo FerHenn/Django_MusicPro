@@ -17,14 +17,19 @@
 </head>
 <body>
     <div class="navMenu">
-        <a class="logo" href="">Music<span class="colorJardin">Pro</span></a>
+        <a class="logo" href="{% url 'index' %}">Music<span class="colorJardin">Pro</span></a>
         <div class="menu">
             <ul class="fullMenu" style="align-items: center;">
                 <li><a class="linkMenu" href={% url 'index' %}>Inicio</a></li>
                 <li><a class="linkMenu" href={%url 'productos' %}>Productos</a></li>
                 <li><a class="linkMenu" href={%url 'contacto' %}>Contacto</a></li>
                 <li><a class="linkMenu" href=""><i class="fa-solid fa-magnifying-glass"></i></a></li>
-                <li><a class="linkMenu" href={%url 'index' %}><i class="fa-solid fa-user"></i></a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a class="linkMenu" href={%url 'index' %}><i class="fa-solid fa-user"> {{user.username}} </i></a></li>
+                    <li><a class="linkMenu" href={%url 'exit' %}>Salir</a></li>
+                {% else %}
+                <li><a class="linkMenu" href={%url 'login' %}><i class="fa-solid fa-user">Ingresar</i></a></li>
+                {% endif %}
                 <li><a class="linkMenu" id="cart-icon"><i class="fa-solid fa-cart-shopping"></i></a></li>
                 </li>
 

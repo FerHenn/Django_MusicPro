@@ -5,6 +5,8 @@ from .serializers import ProductoSerializer
 from rest_framework import viewsets
 from .forms import  ProductoForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 # Create your views here.
 
 class ProductoViewset(viewsets.ModelViewSet):
@@ -27,6 +29,7 @@ def index(request):
     return render(request, 'core/index.html')
 def contacto(request):
     return render(request, 'core/contacto.html')
+@login_required
 def productos(request):
     #accedo al objeto que contiene los datos de la base 
     #el metodo all traera todos los productos que esten en la tablita
@@ -86,3 +89,7 @@ def formulario(request):
         else:
             data["form"] = formulario
     return render(request, 'core/formulario.html', data)
+
+def exit(request):
+    logout(request)
+    return redirect('index')
