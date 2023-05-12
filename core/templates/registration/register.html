@@ -43,7 +43,7 @@
     <!--  ================================================ -->
    
     <dt class="pad_letras">
-        <h1 class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" >Login</h1>
+        <h1 class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" >Registro de usuario</h1>
         <hr class="mx-auto">
     </dt>
     <br>
@@ -52,11 +52,11 @@
 
         <div class="card mx-auto" style="width: 30rem;">
             <div class="card-body">
-              <h5 class="card-title">Ingrese sus datos</h5>
+              <h5 class="card-title">Complete los datos</h5>
               {{ form | crispy }}
               <a href="{% url 'index' %}" class="card-link">Inicio</a>
-              <a href="{% url 'register' %}" class="card-link">Registrarse</a>
-              <button class="btn btn-sm btm-primary float-end" type="submit">iniciar sesion</button>
+              <a href="{% url 'login'%}" class="card-link">Iniciar sesión</a>
+              <button class="btn btn-sm btm-primary float-end" type="submit">Registrarse</button>
             </div>
         </div>
     </form>
