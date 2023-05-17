@@ -40,3 +40,23 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre_prod
+    
+class DetalleVenta(models.Model):
+    idDetVenta = models.IntegerField(primary_key=True,verbose_name='id Detalle Venta')
+    cantidad_prod_venta = models.IntegerField(verbose_name='Cantidad de productos')
+    subtotal = models.IntegerField(verbose_name='Subtotal')
+
+    def __str__(self):
+        return self.idDetVenta
+
+
+class Venta(models.Model):
+    idVenta = models.IntegerField(primary_key=True,verbose_name='id Venta')
+    fech_venta = models.DateField(verbose_name='FechaVenta')
+    descuento = models.IntegerField(verbose_name='Descuento Venta')
+    subtotal = models.IntegerField(verbose_name='Subtotal')
+    iva = models.IntegerField(verbose_name='Iva')
+    total = models.IntegerField(verbose_name='Total')
+
+    def __str__(self):
+        return self.idVenta

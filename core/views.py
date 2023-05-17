@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from requests import post
+from django.http import HttpResponse
 from .models import Producto
 from .serializers import ProductoSerializer
 from rest_framework import viewsets
@@ -113,3 +114,14 @@ def register(request):
             return redirect('index')
 
     return render(request, 'registration/register.html', data)
+
+def productito(request):
+    #accedo al objeto que contiene los datos de la base 
+    #el metodo all traera todos los productos que esten en la tablita
+    productos= Producto.objects.all()
+    #ahora crearemos una variable que le pase los datos del producto al template
+    datos = {
+        'productos': productos
+    }
+    #ahora se le agrega para que se envie al template de html
+    return render(request,'core/Productito.html', datos)

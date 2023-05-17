@@ -21,6 +21,10 @@ img{
 body{
     color: var(--text-color);
 }
+.fotito{
+    width: 340px;
+    height: 340px;
+  }
 .container{
     max-width: 1068px;
     margin: auto;
@@ -199,3 +203,4 @@ header{
 .botomsito{
     display: grid;
 }
+
