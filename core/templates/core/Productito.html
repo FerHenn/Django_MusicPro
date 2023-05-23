@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito 2.0</title>
+    <title>Productos</title>
     <!-- Link TO CSS  -->
-    <link rel="stylesheet" href={% static "core/css/Carrito.css"%}>
+    <link rel="stylesheet" href={% static "core/css/Productos.css"%}>
     <!-- Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -16,24 +16,24 @@
     <header>
         <!-- Nav -->
         {% include 'core/navBar.html'%}
-        <div class="nav container">
+        <!-- <div class="nav container">
             <div class="cart">
                 <h2 class="cart-title">Tu Carrito</h2>
-                <!-- Content -->
+                
                 <div class="cart-content">
 
                 </div>
-                <!--total-->
+                
                 <div class="total">
                     <div class="total-title">Total</div>
                     <div class="total-price">$0</div>
                 </div>
-                <!-- Buy Button -->
+                
                 <button type="button" class="btn-buy">Comprar</button>
-                <!-- Cart Close -->
+                
                 <i class='bx bx-x' id="close-cart"></i>
             </div>
-        </div>
+        </div> -->
     </header>
     <!-- Shop -->
     
@@ -109,9 +109,9 @@
         </div>
     </section>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    
+    {% include 'core/footer.html'%}
     <!-- Link to JS -->
-    <script src={% static "core/js/carrito.js" %}></script>
+    <!-- <script src={% static "core/js/carrito.js" %}></script> -->
 
 </body>
 </html>

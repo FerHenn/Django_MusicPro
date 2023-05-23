@@ -1,6 +1,6 @@
 from django.db import router
 from django.urls import path, include
-from .views import index,contacto,productos,crud, mod_prod, eliminar_prod, formulario, ProductoViewset, exit, register
+from .views import index,contacto,productos,crud, mod_prod, eliminar_prod, formulario, ProductoViewset, exit, register,productito
 from rest_framework import routers
 
 # from django.conf import settings #media
@@ -20,7 +20,7 @@ urlpatterns = [
     path('formulario', formulario, name='formulario'),
     path('logout/', exit, name='exit'),
     path('register/', register, name='register'),
-    
+    path('productito', productito, name='productito'),
 ]
 
 #if settings.DEBUG:
