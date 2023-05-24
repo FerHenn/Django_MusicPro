@@ -31,9 +31,11 @@ class Categoria(models.Model):
 
 class Producto(models.Model):
     idProducto = models.AutoField(primary_key=True,verbose_name='id de Producto')
-    nombre_prod = models.CharField(max_length=40,verbose_name='Nombre_prod')
-    imagen_prod = models.ImageField(upload_to="Productos", null=True, blank=True) #python -m pip install Pillow   eso me lo pidio
+    nombre_prod = models.CharField(max_length=40,verbose_name='Nombre de producto')
+    imagen_prod = models.ImageField(upload_to="Productos", null=True, blank=True,verbose_name='Imagen') #python -m pip install Pillow   eso me lo pidio
     descripcion_prod = models.TextField(verbose_name='Descripcion')
+    marca_prod = models.CharField(max_length=30,verbose_name='marca')
+    modelo_prod = models.CharField(max_length=30,verbose_name='modelo')
     cantidad_prod = models.IntegerField(verbose_name='Cantidad de productos')
     precio_prod = models.IntegerField(verbose_name='Precio')
     categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.CASCADE)
