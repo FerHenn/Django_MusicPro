@@ -88,7 +88,7 @@
     <div class="shop-content">
         {% for p in productos %}
         <!-- Box 1 /aca se pueden cambiar con el django y con los for maximizar a 3 por pagina(creo)-->
-        <div class="product-box">
+        <div class="product-box" style="margin-bottom: 25%; margin-left: 10%;">
           {% if p.imagen_prod %}
           <img src="{{p.imagen_prod.url}}" alt="{{p.nombre_prod}}" class="product-img">
           {% endif%}
