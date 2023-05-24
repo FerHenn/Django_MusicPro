@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'django.contrib.humanize',
     'rest_framework',
+    'accounts.apps.AccountsConfig',
     
 ]
 
