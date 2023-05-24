@@ -29,16 +29,25 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombreCategoria
 
+class subcategoria(models.Model):
+    idSubCategoria = models.IntegerField(primary_key=True, verbose_name='Id de SubCategoria')
+    nombreSubCategoria = models.CharField(max_length=50, verbose_name='Nombre de la SubCategoria')
+    categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombreSubCategoria
+
 class Producto(models.Model):
     idProducto = models.AutoField(primary_key=True,verbose_name='id de Producto')
     nombre_prod = models.CharField(max_length=40,verbose_name='Nombre de producto')
     imagen_prod = models.ImageField(upload_to="Productos", null=True, blank=True,verbose_name='Imagen') #python -m pip install Pillow   eso me lo pidio
     descripcion_prod = models.TextField(verbose_name='Descripcion')
-    marca_prod = models.CharField(max_length=30,verbose_name='marca')
-    modelo_prod = models.CharField(max_length=30,verbose_name='modelo')
+    marca_prod = models.CharField(null=True, blank=True,max_length=30,verbose_name='marca')
+    modelo_prod = models.CharField(null=True, blank=True,max_length=30,verbose_name='modelo')
     cantidad_prod = models.IntegerField(verbose_name='Cantidad de productos')
     precio_prod = models.IntegerField(verbose_name='Precio')
     categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.CASCADE)
+    subcategoria = models.ForeignKey(subcategoria, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre_prod
@@ -62,3 +71,4 @@ class Venta(models.Model):
 
     def __str__(self):
         return self.idVenta
+    
