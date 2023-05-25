@@ -125,3 +125,19 @@ def productito(request):
     }
     #ahora se le agrega para que se envie al template de html
     return render(request,'core/Productito.html', datos)
+
+###def roles(request):
+    rol = None
+    if request.user.is_superuser:
+        rol = 'administrador'
+    elif request.user.is_authenticated:
+        rol = 'cliente'
+    elif request.user.is_authenticated:
+        rol = 'bodeguero'
+    elif request.user.is_authenticated:
+        rol = 'tesorero'
+    elif request.user.is_authenticated:
+        rol = 'vendedor'    
+    else:
+        rol = 'invitado'
+    return render(request, '')

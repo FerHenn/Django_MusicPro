@@ -59,6 +59,9 @@
     <!--                 intro                            -->
     <!--  ================================================ -->
 
+    <!-- lo vera rol cliente -->
+    {% if rol == 'cliente' %}
+
 
 <div class="container">
 
@@ -183,6 +186,12 @@
     <!--  ================================================ -->
     <!--                    Seccion final                  -->
     <!--  ================================================ -->
+
+        <!-- Lo vera el rol administrador-->
+        {% elif role == 'administrador' %}
+        <h1> Chupalo, Admin </h1>
+    
+        {% endif %}
 
 
 {% include 'core/footer.html'%}

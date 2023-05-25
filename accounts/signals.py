@@ -13,5 +13,5 @@ def add_user_to_students_group(sender, instance, created, **kwargs):
             students = Group.objects.create(name='bodeguero')
             students = Group.objects.create(name='vendedor')
             students = Group.objects.create(name='contador')
-            students = Group.objects.create(name='administrativo')
+            students = Group.objects.create(name='administrador')
         instance.user.groups.add(students)
