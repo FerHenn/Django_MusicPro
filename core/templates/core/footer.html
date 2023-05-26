@@ -31,11 +31,10 @@
                 <p class="footer-links">
                     <!--Despachos-->
                               <a class="link-1" href="https://www.starken.cl/">Despachos</a>
-                    <!--ONG-->
+                    {% comment %} <!--CRUD editar-->
                               <a href={%url 'crud' %}>Crud(Temporal)</a>
-                    <!--Suscribete-->
-                              <a href={%url 'formulario' %}>Crear Productos(Temporal)</a>
-                    <!--Formulario-->
+                    <!--CRUD crear-->
+                              <a href={%url 'formulario' %}>Crear Productos(Temporal)</a> {% endcomment %}
 
 
                           </p>

@@ -72,3 +72,19 @@ class Venta(models.Model):
     def __str__(self):
         return self.idVenta
     
+class Coupon(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    discount_amount = models.DecimalField(max_digits=5, decimal_places=2)
+    expiration_date = models.DateField()
+    email = models.EmailField()
+    
+    def save(self, *args, **kwargs):
+        # Verificar la unicidad del código de cupón antes de guardar
+        if Coupon.objects.filter(code=self.code).exists():
+            raise ValueError("El código de cupón ya existe.")
+
+    def is_valid(self):
+        return self.expiration_date >= timezone.now().date()
+
+    def __str__(self):
+        return self.code

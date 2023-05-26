@@ -23,16 +23,25 @@
             <ul class="fullMenu" style="align-items: center;">
                 <li><a class="linkMenu" href={% url 'index' %}>Inicio</a></li>
                 <li><a class="linkMenu" href={%url 'productos' %}>Productos</a></li>
+                {% if role != 'cliente' and role != 'invitado' %}
+                <li><a class="linkMenu" href={%url 'crud' %}>Editar y eliminar productos</a></li>
+                <li><a class="linkMenu" href={%url 'formulario' %}>Crear productos</a></li>
+                {% endif %}
                 <li><a class="linkMenu" href={%url 'contacto' %}>Contacto</a></li>
                 <li><a class="linkMenu" href=""><i class="fa-solid fa-magnifying-glass"></i></a></li>
-                {% if request.user.is_authenticated %}
-                    <li><a class="linkMenu" href={%url 'index' %}><i class="fa-solid fa-user"> {{user.username}} </i></a></li>
+                {% if request.user.is_authenticated %} 
+                    {% if role == 'administrador' %}
+                        <li><a class="linkMenu" href='http://127.0.0.1:8000/admin/'><i class="fa-solid fa-user"> {{user.username}} </i></a></li>
+                    {% else %}
+                        <li><a class="linkMenu" href={%url 'index' %}><i class="fa-solid fa-user"> {{user.username}} </i></a></li>
+                    {% endif %}
                     <li><a class="linkMenu" href={%url 'exit' %}>Salir</a></li>
                 {% else %}
                 <li><a class="linkMenu" href={%url 'login' %}><i class="fa-solid fa-user">Ingresar</i></a></li>
                 {% endif %}
                 <li><a class="linkMenu" id="cart-icon"><i class="fa-solid fa-cart-shopping"></i></a></li>
                 </li>
+                
 
             </ul>
             <ul class="responsiveMenu">

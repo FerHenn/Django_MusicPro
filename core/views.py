@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
+from .models import Coupon
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -111,8 +113,23 @@ def register(request):
 
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
-            return redirect('index')
-
+            
+            # Generar cupón de descuento
+            coupon = Coupon.objects.create(
+            code='CODIGO_UNICO',  # Genera un código único para el cupón
+            discount_amount=10,  # Establece el monto de descuento deseado
+            expiration_date='2023-12-31',  # Establece la fecha de vencimiento del cupón
+            email=request.POST['email'],  # Obtén el correo electrónico del formulario
+        )
+            # Enviar cupón por correo electrónico al cliente
+            send_mail(
+            '¡Cupón de descuento!',
+            f'¡Hola! Aquí tienes tu cupón de descuento de bienvenida:) : {coupon.code}',
+            'tu_correo@tudominio.com',
+            [request.POST['email']],
+            fail_silently=False,
+        )
+        return redirect('index')
     return render(request, 'registration/register.html', data)
 
 def productito(request):

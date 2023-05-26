@@ -60,7 +60,7 @@
     <!--  ================================================ -->
 
     <!-- lo vera rol cliente -->
-    {% if role == 'cliente' %}
+    {% comment %} {% if role == 'cliente' %} {% endcomment %}
 
 
 <div class="container">
@@ -187,11 +187,11 @@
     <!--                    Seccion final                  -->
     <!--  ================================================ -->
 
-        <!-- Lo vera el rol administrador-->
+        {% comment %} <!-- Lo vera el rol administrador-->
         {% elif role == 'administrador' %}
         <h1> Chupalo, Admin </h1>
     
-        {% endif %}
+        {% endif %} {% endcomment %}
 
 
 {% include 'core/footer.html'%}
