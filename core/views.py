@@ -116,7 +116,7 @@ def register(request):
             
             # Generar cupón de descuento
             coupon = Coupon.objects.create(
-            code='CODIGO_UNICO',  # Genera un código único para el cupón
+            code='BIENVENIDO23',  # Genera un código único para el cupón
             discount_amount=10,  # Establece el monto de descuento deseado
             expiration_date='2023-12-31',  # Establece la fecha de vencimiento del cupón
             email=request.POST['email'],  # Obtén el correo electrónico del formulario
