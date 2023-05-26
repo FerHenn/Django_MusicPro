@@ -125,7 +125,7 @@ def register(request):
             send_mail(
             '¡Cupón de descuento!',
             f'¡Hola! Aquí tienes tu cupón de descuento de bienvenida:) : {coupon.code}',
-            'tu_correo@tudominio.com',
+            'MusicPro@mail.com',
             [request.POST['email']],
             fail_silently=False,
         )
