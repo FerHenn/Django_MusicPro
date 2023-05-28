@@ -46,12 +46,13 @@ function ready() {
 }
 // Buy Button
 function buyButtonClicked() {
-  alert("Has Hecho Tu compra");
+
   var cartContent = document.getElementsByClassName("cart-content")[0];
   while (cartContent.hasChildNodes()) {
     cartContent.removeChild(cartContent.firstChild);
   }
   updatetotal();
+  window.location.href = "https://khipu.com/payment/process/KcfsL";
 }
 
 // Reomve Items From Cart
