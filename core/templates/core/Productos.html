@@ -33,7 +33,7 @@
     <!--  ================================================ -->
     <!--                 Navegador predeterminado          -->
     <!--  ================================================ -->
-<div class="nav container">
+{% comment %} <div class="nav container">
       <div class="cart">
           <h2 class="cart-title">Tu Carrito</h2>
           <!-- Content -->
@@ -50,8 +50,43 @@
           <!-- Cart Close -->
           <i class='bx bx-x' id="close-cart"></i>
       </div>
-</div>
+</div> {% endcomment %}
     
+<div class="nav container">
+  <div class="cart">
+    <h2 class="cart-title">Tu Carrito</h2>
+    <!-- Content -->
+    <div class="cart-content"></div>
+    <!-- Total -->
+    <div class="total">
+      <div class="total-title">Total</div>
+      <div class="total-price">$0</div>
+    </div>
+    <!-- Delivery Options -->
+    <div class="delivery-options">
+      <label>
+        <input type="radio" name="delivery" value="store-pickup" checked>
+        Retiro en tienda
+      </label>
+      <label>
+        <input type="radio" name="delivery" value="shipping">
+        Despacho ($4,990)
+      </label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="coupon-input" placeholder="INGRESE CUPON" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button id="apply-coupon-btn" class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+      </div>
+      {% comment %} <input type="text" id="coupon-input" placeholder="INGRESE CUPON">
+      <button id="apply-coupon-btn" class="btn btn-outline-secondary">Aplicar</button> {% endcomment %}
+    </div>
+    <!-- Buy Button -->
+    <button type="button" class="btn-buy">Comprar</button>
+    <!-- Cart Close -->
+    <i class='bx bx-x' id="close-cart"></i>
+  </div>
+</div>
+
+
 {% include 'core/navBar.html'%}
 
 
@@ -99,7 +134,7 @@
           <img src={% static "core/img/IMG.png" %} alt="{{p.nombre_prod}}" class="product-img">
           {% endif%}
             <h2 class="product-title">{{ p.nombre_prod | title }}</h2>
-            <span class="price">${{ p.precio_prod | intcomma}}</span>
+            <span class="price">${{ p.precio_prod }}</span>
             <i class='bx bx-shopping-bag add-cart'></i>
             <!-- cambiar por pagina correspondiente al producto-->
             <button type="button" class="btn rounded-pill btn-success " data-bs-toggle="modal" data-bs-target="#myModal{{ p.idProducto }}">Ver producto</button>
