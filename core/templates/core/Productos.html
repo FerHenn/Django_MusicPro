@@ -72,11 +72,12 @@
         <input type="radio" name="delivery" value="shipping">
         Despacho ($4,990)
       </label>
-      
+      {% if user.groups.all.0.name == 'cliente' or 'administrador' %}
       <div class="input-group mb-3">
         <input type="text" class="form-control" id="coupon-input" placeholder="INGRESE CUPON" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button id="apply-coupon-btn" class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
       </div>
+      {% endif %}
       {% comment %} <input type="text" id="coupon-input" placeholder="INGRESE CUPON">
       <button id="apply-coupon-btn" class="btn btn-outline-secondary">Aplicar</button> {% endcomment %}
     </div>
