@@ -12,6 +12,8 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Coupon
 from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -125,7 +127,7 @@ def register(request):
             send_mail(
             '¡Cupón de descuento!',
             f'¡Hola! Aquí tienes tu cupón de descuento de bienvenida:) : {coupon.code}',
-            'MusicPro@mail.com',
+            'contacto@MusicPro.cl',
             [request.POST['email']],
             fail_silently=False,
         )
@@ -158,3 +160,40 @@ def productito(request):
     else:
         rol = 'invitado'
     return render(request, '')
+
+from django.http import JsonResponse
+
+def obtener_correo_usuario(request):
+    if request.user.is_authenticated:
+        correo = request.user.email
+        return JsonResponse({'correo': correo})
+    else:
+        return JsonResponse({'correo': None})
+    
+@csrf_exempt
+def enviar_cupon(request):
+    if request.method == 'POST':
+
+        # Configurar los datos del correo
+        asunto = '¡Cupón de descuento especial!'
+        mensaje = '''
+        Estimado cliente,
+
+        Gracias por tu compra. Aquí tienes un cupón de descuento especial: DESCUENTO123.
+
+        ¡Disfrútalo y vuelve pronto!
+
+        Saludos,
+        Tu tienda online
+        '''
+        remitente = 'contacto@MusicPro.cl'
+        destinatario = 'cliente@cliente.com'
+
+        # Enviar el correo
+        send_mail(asunto, mensaje, remitente, [destinatario] )
+
+        # Retornar la respuesta adecuada (por ejemplo, una respuesta JSON)
+        return JsonResponse({'mensaje': 'El cupón ha sido enviado correctamente'})
+    else:
+        return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
+        # return JsonResponse({'mensaje': 'Cupón enviado correctamente'})

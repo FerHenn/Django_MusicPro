@@ -1,4 +1,124 @@
-let appliedCoupons = [];
+$(document).ready(function () {
+  console.log('jQuery integrado correctamente');
+});
+
+// $(document).ready(function() {
+//   // Hacer la solicitud AJAX al punto final para obtener el correo del usuario
+//   $.ajax({
+//     url: '/api/obtener-correo-usuario/',
+//     dataType: 'json',
+//     success: function(data) {
+//       var correo = data.correo;
+//       // Utiliza el correo del usuario como necesites
+//       console.log(correo);
+//     },
+//     error: function(xhr, status, error) {
+//       console.error(error);
+//     }
+//   });
+// });
+
+$(document).ready(function () {
+  $('.btn-buy').click(function () {
+    // Realiza la solicitud AJAX para enviar el cupón
+    $.ajax({
+      url: '/enviar-cupon/',  // Ajusta la URL según la configuración de tu proyecto
+      method: 'POST',
+      dataType: 'json',
+      success: function (response) {
+        // Maneja la respuesta del servidor
+        console.log(response);
+      },
+      error: function (xhr, status, error) {
+        console.log(error);
+      }
+    });
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  // Hacer la solicitud AJAX al punto final para obtener el correo del usuario
+  fetch('/api/obtener-correo-usuario/')
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Error en la solicitud');
+      }
+    })
+    .then(function (data) {
+      var correo = data.correo;
+      // Utiliza el correo del usuario como necesites
+      console.log(correo);
+
+      // Capturar el evento de clic en el botón "Comprar"
+      document.getElementById('btn-buy').addEventListener('click', function () {
+        // Llamar a la función enviar_cupon con el correo del usuario
+        enviar_cupon(correo);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
+
+var csrftoken = getCookie('csrftoken');
+
+// Configurar el token CSRF en todas las solicitudes AJAX
+$.ajaxSetup({
+  beforeSend: function(xhr, settings) {
+    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+      xhr.setRequestHeader('X-CSRFToken', csrftoken);
+    }
+  }
+});
+
+// Función para obtener el valor de la cookie por su nombre
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+// Función para verificar si el método es seguro para CSRF
+function csrfSafeMethod(method) {
+  // estos métodos HTTP no requieren CSRF
+  return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
+}
+
+function enviar_cupon() {
+  // Obtener el valor del cupón ingresado
+  const couponInput = document.getElementById("coupon-input");
+  // Obtén el correo del usuario desde algún elemento del DOM (por ejemplo, un input)
+  var correo = document.getElementById('correo').value;
+  // Obtener el token CSRF de la cookie
+  // Verificar si el elemento existe antes de acceder a su propiedad 'value'
+  if (couponInput) {
+    const couponCode = couponInput.value.trim();
+    // Realiza una solicitud AJAX para enviar el correo con el cupón
+    $.ajax({
+      url: '/enviar-cupon/',
+      type: 'POST',
+      data: {
+        correo: correo
+      },
+      success: function (response) {
+        console.log('Cupón enviado correctamente');
+      },
+      error: function (xhr, status, error) {
+        console.log('Error al enviar el cupón', error);
+      }
+    });
+  }
+}
 
 //  Cart
 let cartIcon = document.querySelector("#cart-icon");
@@ -42,6 +162,53 @@ function ready() {
     button.addEventListener("click", addCartClicked);
   }
   // Buy Button Work
+  document
+    .getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked)
+    .addEventListener("click", buyButtonClicked);
+}
+// Enviar cupon
+function sendCouponEmail() {
+  // Datos para el correo (puedes ajustar estos valores según tus necesidades)
+  const recipientEmail = correo;
+  const couponCode = "DESCUENTO123";
+
+  // URL del servidor de MailDev para enviar correos
+  const serverURL = "http://localhost:1080/";
+
+  // Configurar los datos del correo
+  const emailData = {
+    from: "tucorreo@tudominio.com",
+    to: recipientEmail,
+    subject: "¡Cupón de descuento especial!",
+    text: `Estimado cliente,
+
+    Gracias por tu compra. Aquí tienes un cupón de descuento especial: ${couponCode}.
+
+    ¡Disfrútalo y vuelve pronto!
+
+    Saludos,
+    Tu tienda online`,
+  };
+
+  // Configurar la solicitud POST al servidor de MailDev
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(emailData),
+  };
+
+  // Enviar la solicitud POST al servidor de MailDev
+  fetch(serverURL, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        console.log("Correo enviado con éxito");
+      } else {
+        console.log("Error al enviar el correo");
+      }
+    })
+    .catch((error) => {
+      console.log("Error en la solicitud de envío de correo", error);
+    });
   document
     .getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked)
     .addEventListener("click", buyButtonClicked);
@@ -190,8 +357,8 @@ function applyCoupon() {
   const couponInput = document.getElementById("coupon-input");
   const couponCode = couponInput.value.trim();
 
-   // Verificar si el cupón ya ha sido aplicado
-   if (appliedCoupons.includes(couponCode)) {
+  // Verificar si el cupón ya ha sido aplicado
+  if (appliedCoupons.includes(couponCode)) {
     // Cupón ya aplicado, mostrar mensaje de error o realizar otra acción
     console.log("Este cupón ya ha sido utilizado");
     return;
@@ -212,7 +379,7 @@ function applyCoupon() {
     // Agregar el cupón a la lista de cupones aplicados
     appliedCoupons.push(couponCode);
 
-     // Desactivar el botón de aplicar cupón
+    // Desactivar el botón de aplicar cupón
     const applyButton = document.getElementById("apply-button");
     applyButton.disabled = true;
   } else {
@@ -235,47 +402,3 @@ if (couponDiscount > 0) {
 
 // Mostrar el total actualizado en el HTML
 totalElement.innerText = "$" + total.toFixed(2);
-
-function sendCouponEmail() {
-  // Datos para el correo (puedes ajustar estos valores según tus necesidades)
-  const recipientEmail = userEmail;
-  const couponCode = "DESCUENTO123";
-
-  // URL del servidor de MailDev para enviar correos
-  const serverURL = "http://localhost:1080/email";
-
-  // Configurar los datos del correo
-  const emailData = {
-    from: "tucorreo@tudominio.com",
-    to: recipientEmail,
-    subject: "¡Cupón de descuento especial!",
-    text: `Estimado cliente,
-
-Gracias por tu compra. Aquí tienes un cupón de descuento especial: ${couponCode}.
-
-¡Disfrútalo y vuelve pronto!
-
-Saludos,
-Tu tienda online`,
-  };
-
-  // Configurar la solicitud POST al servidor de MailDev
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(emailData),
-  };
-
-  // Enviar la solicitud POST al servidor de MailDev
-  fetch(serverURL, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        console.log("Correo enviado con éxito");
-      } else {
-        console.log("Error al enviar el correo");
-      }
-    })
-    .catch((error) => {
-      console.log("Error en la solicitud de envío de correo", error);
-    });
-}

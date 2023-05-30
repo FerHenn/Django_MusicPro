@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('enviar-cupon/', views.enviar_cupon, name='enviar_cupon'),
 ]
 
 if settings.DEBUG:

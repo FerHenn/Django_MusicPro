@@ -1,6 +1,6 @@
 from django.db import router
 from django.urls import path, include
-from .views import index,contacto,productos,crud, mod_prod, eliminar_prod, formulario, ProductoViewset, exit, register,productito
+from .views import index,contacto,productos,crud, mod_prod, eliminar_prod, formulario, ProductoViewset, exit, register,productito, obtener_correo_usuario
 from rest_framework import routers
 
 # from django.conf import settings #media
@@ -21,6 +21,9 @@ urlpatterns = [
     path('logout/', exit, name='exit'),
     path('register/', register, name='register'),
     path('productito', productito, name='productito'),
+    path('api/obtener-correo-usuario/', obtener_correo_usuario, name='obtener_correo_usuario'),
+    
+
 ]
 
 #if settings.DEBUG:
