@@ -35,7 +35,7 @@ def index(request):
     return render(request, 'core/index.html')
 def contacto(request):
     return render(request, 'core/contacto.html')
-@login_required
+# @login_required
 def productos(request):
     #accedo al objeto que contiene los datos de la base 
     #el metodo all traera todos los productos que esten en la tablita
