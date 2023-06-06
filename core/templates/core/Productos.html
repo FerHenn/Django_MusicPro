@@ -76,6 +76,7 @@
           Despacho ($4,990)
         </label>
       </div>
+      <p id="cantidad-total">Cantidad total: <span id="cantidad-valor">0</span></p>
       {% if user.groups.all.0.name == 'cliente' or 'administrador' %}
       <div class="input-group mb-3">
         <input type="text" class="form-control" id="coupon-input" placeholder="INGRESE CUPON" aria-label="Recipient's username" aria-describedby="button-addon2">

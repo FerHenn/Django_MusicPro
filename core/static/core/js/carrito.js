@@ -288,18 +288,21 @@ function updatetotal() {
   var cartContent = document.getElementsByClassName("cart-content")[0];
   var cartBoxes = cartContent.getElementsByClassName("cart-box");
   var total = 0;
+  var totalQuantity = 0;
   for (var i = 0; i < cartBoxes.length; i++) {
     var cartBox = cartBoxes[i];
     var priceElement = cartBox.getElementsByClassName("cart-price")[0];
     var quantityElement = cartBox.getElementsByClassName("cart-quantity")[0];
     var price = parseFloat(priceElement.innerText.replace("$", ""));
-    var quantity = quantityElement.value;
+    var quantity = parseInt(quantityElement.value) || 0;
     total = total + price * quantity;
+    totalQuantity += quantity;
   }
   // If price Contain some Cents Value
   total = (total).toFixed(3); //cambiado para clp
 
   document.getElementsByClassName("total-price")[0].innerText = "$" + total;
+  document.getElementById("cantidad-valor").innerText = totalQuantity;
 }
 
 // Variables globales para almacenar el monto adicional y el tipo de entrega seleccionado
