@@ -226,7 +226,9 @@ function buyButtonClicked() {
   if (cartBoxes.length === 4) {
     sendCouponEmail(); // Llamada a la función para enviar el correo con el cupón de descuento
   }
-  window.location.href = "https://khipu.com/payment/process/KcfsL";
+  // window.location.href = "https://khipu.com/payment/process/KcfsL";
+  
+  window.location.href = "http://127.0.0.1:8000/webpay-plus-create";
 }
 
 // Reomve Items From Cart
@@ -281,6 +283,11 @@ function addProductToCart(title, price, productImg) {
   cartShopBox
     .getElementsByClassName("cart-quantity")[0]
     .addEventListener("change", quantityChanged);
+
+  console.log("Producto agregado al carrito:");
+  console.log("Título:", title);
+  console.log("Precio:", price);
+  console.log("Imagen:", productImg);
 }
 
 // Update Total
@@ -300,10 +307,12 @@ function updatetotal() {
   }
   // If price Contain some Cents Value
   total = (total).toFixed(3); //cambiado para clp
-
   document.getElementsByClassName("total-price")[0].innerText = "$" + total;
   document.getElementById("cantidad-valor").innerText = totalQuantity;
+
 }
+
+
 
 // Variables globales para almacenar el monto adicional y el tipo de entrega seleccionado
 let extraCharge = 0;

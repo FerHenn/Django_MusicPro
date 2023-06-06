@@ -14,6 +14,14 @@ from .models import Coupon
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import requests
+from transbank.webpay.webpay_plus.transaction import Transaction
+from transbank.webpay.webpay_plus.transaction import WebpayOptions,IntegrationApiKeys,IntegrationCommerceCodes
+import datetime as dt
+
+
+from collections.abc import Mapping
 
 # Create your views here.
 
@@ -31,6 +39,98 @@ class ProductoViewset(viewsets.ModelViewSet):
             productos = productos.filter(nombre_prod__contains=nombre)
         
         return productos
+    
+
+def webpay_plus_create(request):
+    # Valores de prueba
+    print("Webpay Plus Transaction.create")
+    buy_order = "ordenCompra12345678"
+    session_id = "sesion1234557545"
+    amount = request.POST.get('total')
+    return_url = request.build_absolute_uri(location='commit-pay/')
+#  version 3.0.1 sdk
+    tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY))
+    response  = tx.create(buy_order, session_id, amount, return_url)
+
+    print(response)
+
+    return render(request, 'core/send-pay.html', {'response': response ,'amount':amount}) #context
+
+def cart(request):
+    print('cart')
+
+    control = { 'image' : 'img/product/control-xbox.jpg',
+                'product': 'XBOX GAMEPAD',
+                'description': 'BLACK COLOR',
+                'price' : 59000,
+                'quantity': 1
+                }
+    gabinete = {'image' : 'img/product/gabinete.jpg',
+                'product': 'CABINET',
+                'description': 'BLACK MATE COLOR',    
+                'price' : 69000,
+                'quantity': 1
+                }
+    notebook = {'image' : 'img/product/notebook.jpg',
+                'product': 'GAMER LAPTOP',
+                'description': 'WHITE COLOR',    
+                'price' : 2150000,
+                'quantity': 1
+                }                   
+
+    products = [control, gabinete, notebook]
+    total = control.get('price') + gabinete.get('price') + notebook.get('price')
+
+    return render(request, 'core/cart.html', {'products' : products, 'total': total})
+
+@csrf_exempt 
+def commitpay(request):
+    print('commitpay')
+    print("request: {0}".format(request.POST))    
+    token = request.POST.get('token_ws')
+
+    TBK_TOKEN = request.POST.get('TBK_TOKEN')
+    TBK_ID_SESION = request.POST.get('TBK_ID_SESION')
+    TBK_ORDEN_COMPRA = request.POST.get('TBK_ORDEN_COMPRA')
+
+    #TRANSACCIÓN REALIZADA
+    if TBK_TOKEN is None and TBK_ID_SESION is None and TBK_ORDEN_COMPRA is None and token is not None:
+
+        #APROBAR TRANSACCIÓN
+        response = Transaction.commit(token=token)
+        print("response: {}".format(response)) 
+
+        status = response.status
+        print("status: {0}".format(status))
+        response_code = response.response_code
+        print("response_code: {0}".format(response_code)) 
+        #TRANSACCIÓN APROBADA
+        if status == 'AUTHORIZED' and response_code == 0:
+
+            state = ''
+            if response.status == 'AUTHORIZED':
+                state = 'Aceptado'
+            pay_type = ''
+            if response.payment_type_code == 'VD':
+                pay_type = 'Tarjeta de Débito'
+            amount = int(response.amount)
+            amount = f'{amount:,.0f}'.replace(',', '.')
+            transaction_date = dt.datetime.strptime(response.transaction_date, '%Y-%m-%dT%H:%M:%S.%fZ')
+            transaction_date = '{:%d-%m-%Y %H:%M:%S}'.format(transaction_date)
+            transaction_detail = {  'card_number': response.card_detail.card_number,
+                                    'transaction_date': transaction_date,
+                                    'state': state,
+                                    'pay_type': pay_type,
+                                    'amount': amount,
+                                    'authorization_code': response.authorization_code,
+                                    'buy_order': response.buy_order, }
+            return render(request, 'commit-pay.html', {'transaction_detail': transaction_detail})
+        else:
+        #TRANSACCIÓN RECHAZADA            
+            return HttpResponse('ERROR EN LA TRANSACCIÓN, SE RECHAZA LA TRANSACCIÓN.')
+    else:
+    #TRANSACCIÓN CANCELADA            
+        return HttpResponse('ERROR EN LA TRANSACCIÓN, SE CANCELO EL PAGO.')
 
 
 def index(request):

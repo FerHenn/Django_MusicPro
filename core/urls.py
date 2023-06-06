@@ -1,6 +1,6 @@
 from django.db import router
 from django.urls import path, include
-from .views import index,contacto,productos,crud, mod_prod, eliminar_prod, formulario, ProductoViewset, exit, register,productito, obtener_correo_usuario
+from .views import index,contacto,productos,crud, mod_prod, eliminar_prod, formulario, ProductoViewset, exit, register,productito, obtener_correo_usuario,webpay_plus_create,cart,commitpay
 from rest_framework import routers
 
 # from django.conf import settings #media
@@ -21,7 +21,11 @@ urlpatterns = [
     path('logout/', exit, name='exit'),
     path('register/', register, name='register'),
     path('productito', productito, name='productito'),
-    path('api/obtener-correo-usuario/', obtener_correo_usuario, name='obtener_correo_usuario'),
+    path('api/obtener-correo-usuario/', obtener_correo_usuario, name='obtener_correo_usuario'),    # path('webpay',webpay,name='webpay')
+    path('cart/', cart),
+    path('commit-pay/', commitpay),
+    path('webpay-plus-create', webpay_plus_create),
+
     
 
 ]
