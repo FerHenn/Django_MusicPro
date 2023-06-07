@@ -46,7 +46,7 @@ def webpay_plus_create(request):
     print("Webpay Plus Transaction.create")
     buy_order = "ordenCompra12345678"
     session_id = "sesion1234557545"
-    amount = request.POST.get('total')
+    amount = 999492       #request.POST.get('total')
     return_url = request.build_absolute_uri(location='commit-pay/')
 #  version 3.0.1 sdk
     tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY))
