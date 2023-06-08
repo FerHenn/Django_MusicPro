@@ -19,6 +19,7 @@ import requests
 from transbank.webpay.webpay_plus.transaction import Transaction
 from transbank.webpay.webpay_plus.transaction import WebpayOptions,IntegrationApiKeys,IntegrationCommerceCodes
 import datetime as dt
+from django.template.loader import render_to_string
 
 
 from collections.abc import Mapping
@@ -126,11 +127,15 @@ def commitpay(request):
                                     'buy_order': response.buy_order, }
             return render(request, 'commit-pay.html', {'transaction_detail': transaction_detail})
         else:
-        #TRANSACCIÓN RECHAZADA            
-            return HttpResponse('ERROR EN LA TRANSACCIÓN, SE RECHAZA LA TRANSACCIÓN.')
+        #TRANSACCIÓN RECHAZADA
+            navbar_html = render_to_string('core/navBar.html')
+            error_message = '<div class="error-message-container">ERROR EN LA TRANSACCIÓN, SE RECHAZA LA TRANSACCIÓN.</div>'
+        return HttpResponse(f'{navbar_html}<div class="content-container">{error_message}</div>')
     else:
-    #TRANSACCIÓN CANCELADA            
-        return HttpResponse('ERROR EN LA TRANSACCIÓN, SE CANCELO EL PAGO.')
+    #TRANSACCIÓN CANCELADA
+        navbar_html = render_to_string('core/navBar.html')
+        error_message = '<div class="error-message-container">ERROR EN LA TRANSACCIÓN, SE CANCELO EL PAGO.</div>'
+    return HttpResponse(f'{navbar_html}<div class="content-container">{error_message}</div>')
 
 
 def index(request):

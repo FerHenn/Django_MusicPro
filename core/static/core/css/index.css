@@ -546,3 +546,12 @@
   margin: auto;
   width: 100%;
 }
+
+.error-message-container {
+  font-size: 24px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  margin-top: 50px;
+  overflow-x: hidden;
+}
