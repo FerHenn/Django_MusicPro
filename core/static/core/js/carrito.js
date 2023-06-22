@@ -369,6 +369,10 @@ function applyCoupon() {
   const couponInput = document.getElementById("coupon-input");
   const couponCode = couponInput.value.trim();
 
+// Declarar y asignar un valor inicial a appliedCoupons
+let appliedCoupons = [];
+
+
   // Verificar si el cupón ya ha sido aplicado
   if (appliedCoupons.includes(couponCode)) {
     // Cupón ya aplicado, mostrar mensaje de error o realizar otra acción
@@ -392,7 +396,7 @@ function applyCoupon() {
     appliedCoupons.push(couponCode);
 
     // Desactivar el botón de aplicar cupón
-    const applyButton = document.getElementById("apply-button");
+    const applyButton = document.getElementById("apply-coupon-btn");
     applyButton.disabled = true;
   } else {
     // Cupón inválido, mostrar un mensaje de error o realizar otra acción
