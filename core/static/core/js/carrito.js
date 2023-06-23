@@ -1,6 +1,3 @@
-$(document).ready(function () {
-  console.log('jQuery integrado correctamente');
-});
 
 // $(document).ready(function() {
 //   // Hacer la solicitud AJAX al punto final para obtener el correo del usuario
@@ -18,23 +15,7 @@ $(document).ready(function () {
 //   });
 // });
 
-$(document).ready(function () {
-  $('.btn-buy').click(function () {
-    // Realiza la solicitud AJAX para enviar el cupón
-    $.ajax({
-      url: '/enviar-cupon/',  // Ajusta la URL según la configuración de tu proyecto
-      method: 'POST',
-      dataType: 'json',
-      success: function (response) {
-        // Maneja la respuesta del servidor
-        console.log(response);
-      },
-      error: function (xhr, status, error) {
-        console.log(error);
-      }
-    });
-  });
-});
+
 document.addEventListener('DOMContentLoaded', function () {
   // Hacer la solicitud AJAX al punto final para obtener el correo del usuario
   fetch('/api/obtener-correo-usuario/')
