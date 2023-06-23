@@ -125,7 +125,7 @@ def commitpay(request):
                                     'amount': amount,
                                     'authorization_code': response.authorization_code,
                                     'buy_order': response.buy_order, }
-            return render(request, 'commit-pay.html', {'transaction_detail': transaction_detail})
+            return render(request, 'commit-pay/', {'transaction_detail': transaction_detail})
         else:
         #TRANSACCIÓN RECHAZADA
             navbar_html = render_to_string('core/navBar.html')
