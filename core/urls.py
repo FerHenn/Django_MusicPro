@@ -2,6 +2,7 @@ from django.db import router
 from django.urls import path, include
 from .views import index,contacto,productos,crud, mod_prod, eliminar_prod, formulario, ProductoViewset, exit, register,productito, obtener_correo_usuario,webpay_plus_create,cart,commitpay
 from rest_framework import routers
+from . import views
 
 # from django.conf import settings #media
 # from django.conf.urls.static import static #media
@@ -25,7 +26,7 @@ urlpatterns = [
     path('cart/', cart),
     path('commit-pay/', commitpay),
     path('webpay-plus-create', webpay_plus_create),
-
+    path('api/actualizar-stock/', views.actualizar_stock, name='actualizar_stock'),
     
 
 ]

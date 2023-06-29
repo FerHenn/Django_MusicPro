@@ -58,6 +58,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+$(document).ready(function() {
+  $('.btn-buy').on('click', function() {
+    // Obtener el identificador del producto desde el atributo data
+    var productoId = $(this).data('producto-id');
+    
+    // Realizar la llamada AJAX
+    $.ajax({
+      url: '/api/actualizar-stock/',  // URL de tu endpoint de actualización de stock
+      type: 'POST',
+      data: {
+        idProducto : productoId  // Enviar el identificador del producto en la solicitud
+      },
+      success: function(response) {
+        // Manejar la respuesta exitosa de la llamada AJAX
+        console.log(response.message);
+        // Actualizar la página o realizar otras acciones necesarias
+      },
+      error: function(xhr, status, error) {
+        // Manejar el error de la llamada AJAX
+        console.error(error);
+      }
+    });
+  });
+});
+
 var csrftoken = getCookie('csrftoken');
 
 // Configurar el token CSRF en todas las solicitudes AJAX

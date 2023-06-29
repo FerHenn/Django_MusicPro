@@ -302,3 +302,18 @@ def enviar_cupon(request):
     else:
         return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
         # return JsonResponse({'mensaje': 'Cupón enviado correctamente'})
+        
+def actualizar_stock(request):
+    if request.method == 'POST':
+        idProducto = request.POST.get('idProducto')
+        
+        # Realiza la lógica para disminuir el stock del producto correspondiente
+        try:    
+            producto = Producto.objects.get(idProducto=idProducto)
+            producto.stock -= 1  # Disminuye el stock en 1
+            producto.save()
+            return JsonResponse({'message': 'Stock actualizado correctamente'})
+        except Producto.DoesNotExist:
+            return JsonResponse({'message': 'Producto no encontrado'})
+    else:
+        return JsonResponse({'message': 'Método no permitido'})        

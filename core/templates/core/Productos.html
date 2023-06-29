@@ -87,7 +87,9 @@
       <button id="apply-coupon-btn" class="btn btn-outline-secondary">Aplicar</button> {% endcomment %}
     </div>
     <!-- Buy Button -->
-    <button id="btn-enviar-cupon" onclick="enviar_cupon()" type="button" class="btn-buy"id='frm-pay' name="pay" action="/webpay-plus-create" method="POST">Comprar</button>
+    <div class="producto" data-producto-id="{{ producto.idProducto }}">
+      <button id="btn-enviar-cupon" data-producto-id="{{ producto.idProducto }}" onclick="enviar_cupon()" type="button" class="btn-buy"id='frm-pay' name="pay" action="/webpay-plus-create" method="POST">Comprar</button>
+    </div>  
     <!-- Cart Close -->
     <i class='bx bx-x' id="close-cart"></i>
   </div>

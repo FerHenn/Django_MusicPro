@@ -68,6 +68,7 @@ class Venta(models.Model):
     subtotal = models.IntegerField(verbose_name='Subtotal')
     iva = models.IntegerField(verbose_name='Iva')
     total = models.IntegerField(verbose_name='Total')
+    producto = models.ForeignKey(Producto, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.idVenta
